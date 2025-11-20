@@ -2,8 +2,8 @@
 #define TCP_SERV_DEFINES_H
 
 #define INIT_MAKRO()           (program_name = \
-                                strrchr( argv[ 0 ], '/') ) ? \
-                                (program_name = argv[ 0 ] )
+                               strrchr( argv[ 0 ], '/') ) ? \
+                               (program_name = argv[ 0 ] )
 
 #define EXIT(s) exit( s )
 #define CLOSE(s) if ( close( s ) ) error( 1, errno, \

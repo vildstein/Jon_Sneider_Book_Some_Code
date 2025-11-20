@@ -4,8 +4,11 @@ set(PROJECT_NAME "TCP_Serv_Skeleton")
 project(${PROJECT_NAME} C)
 message(STATUS "PROJECT_NAME =  ${PROJECT_NAME}")
 
-set(CMAKE_SOCKET_INCLUDE "#include <winsock2.h>")
-message(STATUS "CMAKE_SOCKET_INCLUDE =  ${CMAKE_SOCKET_INCLUDE}")
+#set(CMAKE_SOCKET_INCLUDE "#include <winsock2.h>")
+#message(STATUS "CMAKE_SOCKET_INCLUDE =  ${CMAKE_SOCKET_INCLUDE}")
+
+message(STATUS "CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
+
 
 #if ()
 #    CMAKE_OS
@@ -14,4 +17,14 @@ set(CMAKE_C_STANDARD 11)
 add_executable(${PROJECT_NAME}
         main.c
         tcp_serv_defines.h)
-target_compile_definitions(${PROJECT_NAME} PRIVATE "CMAKE_SOCKET_INCLUDE =  ${CMAKE_SOCKET_INCLUDE}")
+
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    target_compile_definitions(${PROJECT_NAME} PRIVATE OS_DEFINED_CMAKE_LIN)
+    message(STATUS "LINUX DEFINED")
+else ()
+    target_compile_definitions(${PROJECT_NAME} PRIVATE OS_DEFINED_CMAKE_WIN)
+    message(STATUS "DEFINED NOT LINUX")
+endif()
+
+#target_compile_definitions(${PROJECT_NAME} PRIVATE "CMAKE_SOCKET_INCLUDE =  ${CMAKE_SOCKET_INCLUDE}")
+#target_compile_definitions(${PROJECT_NAME} PRIVATE "CMAKE_SOCKET_INCLUDE =  ${CMAKE_SOCKET_INCLUDE}")
