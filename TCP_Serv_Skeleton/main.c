@@ -6,66 +6,61 @@
 #include <sys/socket.h>
 #endif
 
-#define SOME_STRING "some fucking string"
-
-#define ONE 1
 
 #include <stdio.h>
+//#include <cstring>
+#include <sys/unistd.h>
 
-//#include <stdlib.h>
-//#include <unistd.h>
-//#include <stdarg.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdarg.h>
 
-//#include <winsock2.h>
+#include <errno.h>
+//#include <netdb.h>
 
-//#ifndef OS
-//#define OS ""
-//#endif
+#include <fcntl.h>
+#include <sys/time.h>
+//#include <netinet/in.h>
+//#include <arpa/inet.h>
 
-
-//CMAKE_SOCKET_INCLUDE
-
-//#include CMAKE_SOCKET_INCLUDE
-
-
-//#define CMAKE_SOCKET_INCLUDE //CMAKE_SOCK
-
-//CMAKE_SOCKET_INCLUDE
-
-//#include <CMAKE_SOCKET_INCLUDE>
 
 #include "tcp_serv_defines.h"
 
 const char* cmakeInclude = TO_STRING(CMAKE_SOCKET_INCLUDE);
 
+char* program_name;
+
+SET_ADDRESS_FORWARD_DECL
+
 //const char str[30] = {CMAKE_SOCKET_INCLUDE};
 
-int main(void) {
-
-    //printf(CMAKE_SOCKET_INCLUDE );
-
-    printf("%d\n", ONE);
-    printf(SOME_STRING);
-
-    //const char* str = CMAKE_SOCKET_INCLUDE ;
-
-    //printf(CMAKE_SOCKET_INCLUDE);
+int main( int argc, char** argv) {
 
 
-    //struct SIN local;
-    //struct SIN peer;
+    struct sockaddr_in local;
+    struct sockaddr_in peer;
 
-    char* hname;
-    char* sname;
+    char* hName;
+    char* sName;
 
-    int peerlen;
+    int peerLen;
 
-    //SOCKET sock1;
-    //SOCKET s;
+    SOCKET sock1;
+    SOCKET s;
 
     const int on = 1;
 
-    //INIT_MAKRO();
+    INIT_MACRO() ; //??? why MACRO?
+
+    if (argc == 2) {
+        hName == NULL;
+        sName = argv[ 1 ];
+    } else {
+        hName == argv[ 1 ];
+        sName = argv[ 2 ];
+    }
+
+    set_address( hName, sName, &local, "tcp");
 
 
 
@@ -76,4 +71,14 @@ int main(void) {
     //puts(cmakeInclude);
     //puts(str);
     return 0;
+}
+
+
+static void set_address(char* hostName, char* sname, struct sockaddr_in* sap, char* protocol) {
+    struct srvent* sp;
+    struct hostent* hp;
+    char* endPtr;
+    short port;
+
+   // bzero( sap, sizeof( *sap) ); change for memset
 }

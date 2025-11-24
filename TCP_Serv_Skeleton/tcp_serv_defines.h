@@ -1,9 +1,10 @@
 #ifndef TCP_SERV_DEFINES_H
 #define TCP_SERV_DEFINES_H
 
-#define INIT_MAKRO()           (program_name = \
-                               strrchr( argv[ 0 ], '/') ) ? \
-                               (program_name = argv[ 0 ] )
+#define INIT_MACRO()    program_name = \
+                        program_name = ( strrchr(argv[ 0 ], '/' ) ) ? \
+                        program_name++ : \
+                        (program_name = argv[ 0 ] );
 
 #define EXIT(s) exit( s )
 #define CLOSE(s) if ( close( s ) ) error( 1, errno, \
@@ -17,5 +18,7 @@
 
 #define SOCKET int
 #define SIN sockaddr_in
+
+#define SET_ADDRESS_FORWARD_DECL static void set_address(char* hostName, char* sname, struct sockaddr_in* sap, char* protocol);
 
 #endif //TCP_SERV_DEFINES_H
