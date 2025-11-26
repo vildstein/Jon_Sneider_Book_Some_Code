@@ -20,5 +20,6 @@
 #define SIN sockaddr_in
 
 #define SET_ADDRESS_FORWARD_DECL static void set_address(char* hostName, char* sname, struct sockaddr_in* sap, char* protocol);
+#define ERROR_FORWARD_DECL void error(int status, int err, char* format, ...);
 
 #endif //TCP_SERV_DEFINES_H
