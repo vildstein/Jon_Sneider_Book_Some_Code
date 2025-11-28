@@ -1,10 +1,21 @@
 #ifndef TCP_SERV_DEFINES_H
 #define TCP_SERV_DEFINES_H
 
-#define INIT_MACRO()    program_name = \
+
+#if defined(OS_DEFINED_CMAKE_LIN)
+
+#define INIT()    program_name = \
                         program_name = ( strrchr(argv[ 0 ], '/' ) ) ? \
                         program_name++ : \
                         (program_name = argv[ 0 ] );
+#define BZERO_SOCK_ADDR_IN_STRUCT bzero(sap, sizeof(*sap));
+
+#elif defined(OS_DEFINED_CMAKE_WIN)
+
+#define INIT() WSAStartup();
+#define BZERO_SOCK_ADDR_IN_STRUCT memset(sap, int(0), sizeof(*sap));
+
+#endif
 
 #define EXIT(s) exit( s )
 #define CLOSE(s) if ( close( s ) ) error( 1, errno, \
