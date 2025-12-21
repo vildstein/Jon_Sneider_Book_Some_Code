@@ -28,6 +28,7 @@ char* program_name;
 
 SET_ADDRESS_FORWARD_DECL
 ERROR_FORWARD_DECL
+SERVER_FUNC_FORWARD_DECL
 
 int main( int argc, char** argv) {
 
@@ -45,7 +46,7 @@ int main( int argc, char** argv) {
 
     const int on = 1;
 
-    INIT() //??? why MACRO?
+    INIT(); //??? why MACRO?
 
     if (argc == 2) {
         hostName == NULL;
@@ -75,7 +76,16 @@ int main( int argc, char** argv) {
         error(1, errno, "listen mistake");
     }
 
-    //do {} while (0);
+    do {
+        peerLen = sizeof(peer);
+        sock1 = accept( s, (struct sockaddr*) &peer, &peerLen);
+        if (IS_VALID_SOCKET(sock1) ) {
+            error(1, errno, "accept calling mistake");
+        }
+        server(sock1, &peer);
+        CLOSE( sock1);
+
+    } while (1);
 
     EXIT(0);
     //return 0;
@@ -131,4 +141,10 @@ void error(int status, int err, char* format, ...) {
     if (status) {
         EXIT(status);
     }
+}
+
+static void server(SOCKET s, struct SIN* peer) {
+    char* answer =  {"Fuck Off"};
+
+    send(s, answer, strlen(answer), 0);
 }
