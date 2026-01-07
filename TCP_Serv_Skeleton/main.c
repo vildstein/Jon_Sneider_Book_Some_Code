@@ -46,7 +46,7 @@ int main( int argc, char** argv) {
 
     const int on = 1;
 
-    INIT(); //??? why MACRO?
+    INIT();
 
     if (argc == 2) {
         hostName == NULL;
@@ -105,7 +105,7 @@ static void set_address(char* hostName, char* serverName, struct sockaddr_in* sa
     if (hostName != NULL) {
         if (!inet_aton(hostName, &sap->sin_addr)) {
             hp = gethostbyname(hostName);
-            if (hostName == NULL) {
+            if (hp == NULL) {
                 error(1, 0, "unknown host %s\n", hostName);
             }
             sap->sin_addr = *(struct in_addr*)hp->h_addr;
@@ -120,7 +120,7 @@ static void set_address(char* hostName, char* serverName, struct sockaddr_in* sa
     } else {
         sp = getservbyname( serverName, protocol);
         if (sp == NULL) {
-            error(1, 0, "unknown service: %s\n", sp);
+            error(1, 0, "unknown service: %s\n", serverName);
         }
         sap->sin_port = sp->s_port;
     }
