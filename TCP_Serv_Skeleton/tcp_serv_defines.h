@@ -20,7 +20,7 @@
 
 #define EXIT(s) exit( s )
 #define CLOSE(s) if ( close( s ) ) error( 1, errno, \
-                 "ошибка mistake close " )
+                 "CLOSE_SOCKET FUNCTION FAIL" )
 
 #define SET_ERRNO(e) errno = ( e )
 
@@ -36,5 +36,7 @@
 #define SET_ADDRESS_FORWARD_DECL static void set_address(char* hostName, char* sname, struct SIN* sap, char* protocol);
 #define ERROR_FORWARD_DECL void error(int status, int err, char* format, ...);
 #define SERVER_FUNC_FORWARD_DECL static void server(SOCKET s, struct SIN* peer);
+
+#define TRUE 1
 
 #endif //TCP_SERV_DEFINES_H
