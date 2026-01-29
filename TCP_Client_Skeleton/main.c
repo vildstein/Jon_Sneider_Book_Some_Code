@@ -10,6 +10,7 @@
 #if defined(OS_DEFINED_CMAKE_WIN)
 #include <winsock2.h>
 #include <winsock.h>
+#include <windows.h>
 #endif
 
 #if defined(OS_DEFINED_CMAKE_LIN)
@@ -56,7 +57,7 @@ int main( int argc, char** argv) {
     s = socket(AF_INET, SOCK_STREAM, 0 );
 
     if (!IS_VALID_SOCKET(s)) {
-        error(1, errno, "socket mistake");
+        error(1, errno, "SOCK FUNC FAILED");
     }
 
     if (connect( s, STRUCT_SOCKADDR_CAST&peer, sizeof(peer))) {
@@ -81,13 +82,12 @@ static void set_address(char* host, char* port, struct sockaddr_in* sap, char* p
     sap->sin_family = AF_INET;
 
     if (host != NULL) {
-        if (!inet_aton(host, &sap->sin_addr)) {
+        if (!inet_addr(host)) {//if (!inet_aton(host, &sap->sin_addr)) {
             hp = gethostbyname(host);
 
             if (hp == NULL) {
                 error(1, 0, "unknown host %s\n", host);
             }
-
             sap->sin_addr = *STRUCT_IN_ADDR_CAST hp->h_addr;
         }
     } else {

@@ -15,7 +15,7 @@
 
 #elif defined(OS_DEFINED_CMAKE_WIN)
 
-#define INIT() //WSAStartup();
+#define INIT() WSADATA data;  if ( WSAStartup(MAKEWORD(2, 2), &data) ) { printf("Failed to initialize.\n"); return -1; };
 #define BZERO_SOCK_ADDR_IN_STRUCT(sap, int_ch, s_of) memset(sap, int_ch, s_of); //bzero(sap, 0, sizeof(*sap));
 #define SOCKET size_t
 #define IS_VALID_SOCKET(e) ( (e) != INVALID_SOCKET )
